@@ -127,3 +127,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Custom
+# Will not upload image files to the remote server.
+# For privacy and security concerns.
+*.png
