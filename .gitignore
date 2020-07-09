@@ -132,3 +132,7 @@ dmypy.json
 # Will not upload image files to the remote server.
 # For privacy and security concerns.
 *.png
+
+# iq option Accounts
+# Hide them because others might try to use my accounts.
+accounts.py
