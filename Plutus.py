@@ -47,7 +47,7 @@ class Window(QWidget):
         self.grid_layout.addWidget(self.button_refresh, 3, 0)
 
         self.setLayout(self.grid_layout)
-        # self.setGeometry(300, 300, 500, 500)
+        self.setGeometry(300, 300, 200, 200)
         self.setWindowTitle("Project Plutus - Main Window")
         self.show()
         # =========================================================================================================================
@@ -146,7 +146,13 @@ class Window(QWidget):
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.DEBUG, format="%(asctime)s %(message)s")    # Debug mode on
+    current_local_time = str(time.ctime()).replace(":", "-")
+    log_file_name = current_local_time + " iq_option_connection"
+
+    logging.basicConfig(filename="logs/" + log_file_name + ".log",
+                        format="%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s",
+                        # datefmt="%H:%M:%S",
+                        level=logging.DEBUG)    # Debug mode on
 
     # Initialize
     Plutus = IQ_Option(test_accounts["email_1"], test_accounts["password_1"])
