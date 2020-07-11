@@ -22,12 +22,14 @@ class Window(QWidget):
 
         # Account Balance
         self.label_balance = QLabel(self)
+        self.label_balance.setText("Balance: ")
         self.grid_layout.addWidget(self.label_balance, 0, 0)
         self.label_balance_value = QLabel(self)
         self.grid_layout.addWidget(self.label_balance_value, 0, 1)
 
         # Currency Type
         self.label_currency_type = QLabel(self)
+        self.label_currency_type.setText("Currency Type: ")
         self.grid_layout.addWidget(self.label_currency_type, 1, 0)
         self.label_currency_type_value = QLabel(self)
         self.grid_layout.addWidget(self.label_currency_type_value, 1, 1)
@@ -45,7 +47,7 @@ class Window(QWidget):
         self.grid_layout.addWidget(self.button_refresh, 3, 0)
 
         self.setLayout(self.grid_layout)
-        self.setGeometry(300, 300, 500, 500)
+        # self.setGeometry(300, 300, 500, 500)
         self.setWindowTitle("Project Plutus - Main Window")
         self.show()
         # =========================================================================================================================
@@ -71,28 +73,42 @@ class Window(QWidget):
         # End of: Utility Variables -----------------------------------------------------------------------------------------------
 
         # Initialize Values
-        self.set_balance(self.balance)
-        self.set_currency_type(self.currency_type)
+        self.set_balance_gui(self.balance)
+        self.set_currency_type_gui(self.currency_type)
 
-    # Mutator Functions
-    def set_balance(self, balance):
+    # Mutator Fucntions -----------------------------------------------------------------------------------------------------------
+    def set_balance_gui(self, balance):
         self.label_balance_value.setText(str(balance))
+        self.label_balance_value.adjustSize()
 
         return True
 
-    def set_currency_type(self, currency_type):
+    def set_currency_type_gui(self, currency_type):
         self.label_currency_type_value.setText(currency_type)
+        self.label_currency_type_value.adjustSize()
 
         return True
+    # End of: Mutator Fucntions ---------------------------------------------------------------------------------------------------
 
-    # Accessor Functions
-    def get_balance(self):
+    # Accessor Fucntions ----------------------------------------------------------------------------------------------------------
+    def get_balance_online(self):
+        self.balance = self.Plutus.get_balance()
+
         return self.balance
 
-    def get_currency_type(self):
-        return self.currency_type
+    def get_balance_local(self):
+        return self.balance
 
-    # Utility Functions
+    def get_currency_type_online(self):
+        self.currency_type = self.Plutus.get_currency()
+
+        return self.currency_type()
+
+    def get_currency_type_local(self):
+        return self.currency_type
+    # End of: Accessor Fucntions --------------------------------------------------------------------------------------------------
+
+    # Utility Fucntions -----------------------------------------------------------------------------------------------------------
     def connect(self):
         self.is_connected, self.connection_status_reason = self.Plutus.connect()    # Connect to iq option server.
 
@@ -113,7 +129,11 @@ class Window(QWidget):
 
     def reset_balance(self):
         self.Plutus.reset_practice_balance()
-        self.balance = self.get_balance()
+        self.balance = self.get_balance_online()
+
+        print("#########", self.balance, "#########")
+
+        self.label_balance_value.setText(str(self.balance))
 
         return self.balance
 
@@ -122,6 +142,7 @@ class Window(QWidget):
     
     def get_server_timestamp(self):
         return self.Plutus.get_server_timestamp()
+    # End of: Utility Fucntions ---------------------------------------------------------------------------------------------------
 
 
 if __name__ == "__main__":
