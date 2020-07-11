@@ -139,4 +139,4 @@ accounts.py
 
 # test files
 # These files are not necessary.
-test.py
+test/
