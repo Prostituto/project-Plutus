@@ -1,0 +1,152 @@
+2020-07-11 18:26:24,861,861 iqoptionapi.ws.client DEBUG Websocket client connected.
+2020-07-11 18:26:24,866,866 iqoptionapi.api DEBUG POST: https://auth.iqoption.com/api/v2/login headers: {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:70.0 Gecko/20100101 Firefox/70.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} cookies: {'Plutus': 'GOOD'}
+2020-07-11 18:26:24,867,867 urllib3.connectionpool DEBUG Starting new HTTPS connection (1): auth.iqoption.com:443
+2020-07-11 18:26:25,583,583 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463185809}
+2020-07-11 18:26:25,583,583 iqoptionapi.ws.client DEBUG {"name":"heartbeat","msg":1594463185809}
+2020-07-11 18:26:26,149,149 urllib3.connectionpool DEBUG https://auth.iqoption.com:443 "POST /api/v2/login HTTP/1.1" 200 60
+2020-07-11 18:26:26,150,150 iqoptionapi.api DEBUG <Response [200]>
+2020-07-11 18:26:26,150,150 iqoptionapi.api DEBUG {"code":"success","ssid":"771c55504319e5cf41551c5b7f2ea5d1"}
+2020-07-11 18:26:26,150,150 iqoptionapi.api DEBUG {'Server': 'nginx', 'Date': 'Sat, 11 Jul 2020 10:26:26 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '60', 'Connection': 'keep-alive', 'Set-Cookie': 'ssid=771c55504319e5cf41551c5b7f2ea5d1; Path=/; Domain=iqoption.com; Max-Age=2592000; Secure; SameSite=None', 'Vary': 'Origin', 'X-Tracing-Key': '6bf0b52a-6171-4de7-86d3-fe0919d18281', 'Strict-Transport-Security': 'max-age=15555600', 'X-Content-Type-Options': 'nosniff'}
+2020-07-11 18:26:26,150,150 iqoptionapi.api DEBUG <RequestsCookieJar[<Cookie ssid=771c55504319e5cf41551c5b7f2ea5d1 for .iqoption.com/>]>
+2020-07-11 18:26:26,151,151 iqoptionapi.api DEBUG {"name": "ssid", "msg": "771c55504319e5cf41551c5b7f2ea5d1", "request_id": 150674}
+2020-07-11 18:26:26,492,492 iqoptionapi.ws.client DEBUG {"name":"profile","msg":{"account_status":"NONE","address":"Roxas Ave, Diliman, Quezon City, Metro Manila","auth_two_factor":null,"avatar":"","balance":0.0,"balance_id":359423712,"balance_type":1,"balances":[{"id":359423712,"user_id":73193083,"type":1,"amount":0,"enrolled_amount":0,"enrolled_sum_amount":0,"hold_amount":0,"orders_amount":0,"auth_amount":0,"equivalent":0,"currency":"USD","tournament_id":null,"tournament_name":null,"is_fiat":true,"is_marginal":false,"has_deposits":false},{"id":359423713,"user_id":73193083,"type":4,"amount":10000,"enrolled_amount":10000,"enrolled_sum_amount":10000,"hold_amount":0,"orders_amount":0,"auth_amount":0,"equivalent":0,"currency":"USD","tournament_id":null,"tournament_name":null,"is_fiat":true,"is_marginal":false,"has_deposits":false},{"id":359423714,"user_id":73193083,"type":5,"amount":0,"enrolled_amount":0,"enrolled_sum_amount":0,"hold_amount":0,"orders_amount":0,"auth_amount":0,"equivalent":0,"currency":"BTC","tournament_id":null,"tournament_name":null,"is_fiat":false,"is_marginal":false,"has_deposits":false},{"id":359423715,"user_id":73193083,"type":5,"amount":0,"enrolled_amount":0,"enrolled_sum_amount":0,"hold_amount":0,"orders_amount":0,"auth_amount":0,"equivalent":0,"currency":"ETH","tournament_id":null,"tournament_name":null,"is_fiat":false,"is_marginal":false,"has_deposits":false}],"birthdate":991886400,"bonus_total_wager":0,"bonus_wager":0,"cashback_level_info":{"enabled":false},"city":"Quezon","client_category_id":1,"confirmation_required":0,"confirmed_phones":["63 *****36284"],"country_id":157,"created":1593926317,"currency":"USD","currency_char":"$","currency_id":5,"demo":0,"deposit_count":0,"deposit_in_one_click":false,"email":"earnmoneyonline.a01@gmail.com","finance_state":"","first_name":"Maggie","flag":"PH","forget_status":{"status":"none","created":null,"expires":null},"functions":[],"gender":"female","group_id":191,"id":73193083,"infeed":1,"is_activated":true,"is_islamic":false,"is_vip_group":false,"kyc":{"status":1,"isPhoneFilled":false,"isPhoneNeeded":false,"isProfileFilled":false,"isProfileNeeded":false,"isRegulatedUser":false,"daysLeftToVerify":-1,"isPhoneConfirmed":false,"isDocumentsNeeded":false,"isDocumentsApproved":false,"isDocumentsDeclined":false,"isDocumentsUploaded":false,"isDocumentPoaUploaded":false,"isDocumentPoiUploaded":false,"isDocumentsUploadSkipped":false,"isPhoneConfirmationSkipped":false},"kyc_confirmed":false,"last_name":"Debora","last_visit":false,"locale":"en_US","mask":"$%s","messages":0,"money":{"deposit":{"min":0,"max":0},"withdraw":{"min":0,"max":0}},"name":"Maggie Debora","nationality":"Philippines","need_phone_confirmation":false,"new_email":"","nickname":"Carter Mitchell","personal_data_policy":{"is_call_accepted":{"status":true},"is_push_accepted":{"status":true},"is_email_accepted":{"status":true},"is_agreement_accepted":{"status":true},"is_thirdparty_accepted":{"status":true}},"phone":"63 *****36284","popup":[],"postal_index":"1101","public":0,"rate_in_one_click":false,"site_id":1,"skey":"5d67c5cce05fb0317cff7ed07e8483c5","socials":{},"ssid":false,"tc":true,"timediff":-3600,"tin":"","tournaments_ids":null,"trade_restricted":false,"trial":false,"tz":"Europe/Malta","tz_offset":120,"user_circle":null,"user_group":"ACO_Default","user_id":73193083,"welcome_splash":0},"request_id":""}
+2020-07-11 18:26:26,492,492 iqoptionapi.ws.client DEBUG {"name":"front","msg":"ws14b"}
+2020-07-11 18:26:26,608,608 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463186825}
+2020-07-11 18:26:26,696,696 iqoptionapi.api DEBUG {"name": "subscribeMessage", "msg": {"name": "portfolio.position-changed", "version": "2.0", "params": {"routingFilters": {"instrument_type": "cfd", "user_balance_id": 359423713}}}, "request_id": ""}
+2020-07-11 18:26:26,696,696 iqoptionapi.api DEBUG {"name": "subscribeMessage", "msg": {"name": "portfolio.position-changed", "version": "2.0", "params": {"routingFilters": {"instrument_type": "forex", "user_balance_id": 359423713}}}, "request_id": ""}
+2020-07-11 18:26:26,696,696 iqoptionapi.api DEBUG {"name": "subscribeMessage", "msg": {"name": "portfolio.position-changed", "version": "2.0", "params": {"routingFilters": {"instrument_type": "crypto", "user_balance_id": 359423713}}}, "request_id": ""}
+2020-07-11 18:26:26,696,696 iqoptionapi.api DEBUG {"name": "subscribeMessage", "msg": {"name": "portfolio.position-changed", "version": "2.0", "params": {"routingFilters": {"instrument_type": "digital-option", "user_balance_id": 359423713}}}, "request_id": ""}
+2020-07-11 18:26:26,696,696 iqoptionapi.api DEBUG {"name": "subscribeMessage", "msg": {"name": "portfolio.position-changed", "version": "2.0", "params": {"routingFilters": {"instrument_type": "turbo-option", "user_balance_id": 359423713}}}, "request_id": ""}
+2020-07-11 18:26:26,696,696 iqoptionapi.api DEBUG {"name": "subscribeMessage", "msg": {"name": "portfolio.position-changed", "version": "2.0", "params": {"routingFilters": {"instrument_type": "binary-option", "user_balance_id": 359423713}}}, "request_id": ""}
+2020-07-11 18:26:26,696,696 iqoptionapi.api DEBUG {"name": "subscribeMessage", "msg": {"name": "portfolio.order-changed", "version": "1.0", "params": {"routingFilters": {"instrument_type": "cfd"}}}, "request_id": ""}
+2020-07-11 18:26:26,696,696 iqoptionapi.api DEBUG {"name": "subscribeMessage", "msg": {"name": "portfolio.order-changed", "version": "1.0", "params": {"routingFilters": {"instrument_type": "forex"}}}, "request_id": ""}
+2020-07-11 18:26:26,696,696 iqoptionapi.api DEBUG {"name": "subscribeMessage", "msg": {"name": "portfolio.order-changed", "version": "1.0", "params": {"routingFilters": {"instrument_type": "crypto"}}}, "request_id": ""}
+2020-07-11 18:26:26,696,696 iqoptionapi.api DEBUG {"name": "subscribeMessage", "msg": {"name": "portfolio.order-changed", "version": "1.0", "params": {"routingFilters": {"instrument_type": "digital-option"}}}, "request_id": ""}
+2020-07-11 18:26:26,696,696 iqoptionapi.api DEBUG {"name": "subscribeMessage", "msg": {"name": "portfolio.order-changed", "version": "1.0", "params": {"routingFilters": {"instrument_type": "turbo-option"}}}, "request_id": ""}
+2020-07-11 18:26:26,696,696 iqoptionapi.api DEBUG {"name": "subscribeMessage", "msg": {"name": "portfolio.order-changed", "version": "1.0", "params": {"routingFilters": {"instrument_type": "binary-option"}}}, "request_id": ""}
+2020-07-11 18:26:26,696,696 iqoptionapi.api DEBUG {"name": "setOptions", "msg": {"sendResults": true}, "request_id": "1"}
+2020-07-11 18:26:26,696,696 iqoptionapi.api DEBUG {"name": "sendMessage", "msg": {"name": "get-balances", "version": "1.0"}, "request_id": 6967292}
+2020-07-11 18:26:27,024,24 iqoptionapi.ws.client DEBUG {"name":"result","request_id":"1","msg":{"success":true}}
+2020-07-11 18:26:27,055,55 iqoptionapi.ws.client DEBUG {"name":"result","request_id":"","msg":{"success":true}}
+2020-07-11 18:26:27,070,70 iqoptionapi.ws.client DEBUG {"request_id":"","name":"balances","msg":[{"id":359423712,"user_id":73193083,"type":1,"amount":0,"enrolled_amount":0,"enrolled_sum_amount":0,"hold_amount":0,"orders_amount":0,"auth_amount":0,"equivalent":0,"currency":"USD","tournament_id":null,"tournament_name":null,"is_fiat":true,"is_marginal":false,"has_deposits":false}, {"id":359423713,"user_id":73193083,"type":4,"amount":10000,"enrolled_amount":10000,"enrolled_sum_amount":10000,"hold_amount":0,"orders_amount":0,"auth_amount":0,"equivalent":0,"currency":"USD","tournament_id":null,"tournament_name":null,"is_fiat":true,"is_marginal":false,"has_deposits":false}, {"id":359423714,"user_id":73193083,"type":5,"amount":0,"enrolled_amount":0,"enrolled_sum_amount":0,"hold_amount":0,"orders_amount":0,"auth_amount":0,"equivalent":0,"currency":"BTC","tournament_id":null,"tournament_name":null,"is_fiat":false,"is_marginal":false,"has_deposits":false}, {"id":359423715,"user_id":73193083,"type":5,"amount":0,"enrolled_amount":0,"enrolled_sum_amount":0,"hold_amount":0,"orders_amount":0,"auth_amount":0,"equivalent":0,"currency":"ETH","tournament_id":null,"tournament_name":null,"is_fiat":false,"is_marginal":false,"has_deposits":false}],"status":0}
+2020-07-11 18:26:27,070,70 iqoptionapi.api DEBUG {"name": "sendMessage", "msg": {"name": "get-balances", "version": "1.0"}, "request_id": 70995}
+2020-07-11 18:26:27,383,383 iqoptionapi.ws.client DEBUG {"name":"result","request_id":"","msg":{"success":true}}
+2020-07-11 18:26:27,383,383 iqoptionapi.ws.client DEBUG {"request_id":"","name":"balances","msg":[{"id":359423712,"user_id":73193083,"type":1,"amount":0,"enrolled_amount":0,"enrolled_sum_amount":0,"hold_amount":0,"orders_amount":0,"auth_amount":0,"equivalent":0,"currency":"USD","tournament_id":null,"tournament_name":null,"is_fiat":true,"is_marginal":false,"has_deposits":false}, {"id":359423713,"user_id":73193083,"type":4,"amount":10000,"enrolled_amount":10000,"enrolled_sum_amount":10000,"hold_amount":0,"orders_amount":0,"auth_amount":0,"equivalent":0,"currency":"USD","tournament_id":null,"tournament_name":null,"is_fiat":true,"is_marginal":false,"has_deposits":false}, {"id":359423714,"user_id":73193083,"type":5,"amount":0,"enrolled_amount":0,"enrolled_sum_amount":0,"hold_amount":0,"orders_amount":0,"auth_amount":0,"equivalent":0,"currency":"BTC","tournament_id":null,"tournament_name":null,"is_fiat":false,"is_marginal":false,"has_deposits":false}, {"id":359423715,"user_id":73193083,"type":5,"amount":0,"enrolled_amount":0,"enrolled_sum_amount":0,"hold_amount":0,"orders_amount":0,"auth_amount":0,"equivalent":0,"currency":"ETH","tournament_id":null,"tournament_name":null,"is_fiat":false,"is_marginal":false,"has_deposits":false}],"status":0}
+2020-07-11 18:26:27,699,699 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463187841}
+2020-07-11 18:26:28,642,642 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463188857}
+2020-07-11 18:26:29,654,654 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463189873}
+2020-07-11 18:26:30,673,673 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463190892}
+2020-07-11 18:26:31,677,677 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463191909}
+2020-07-11 18:26:32,707,707 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463192925}
+2020-07-11 18:26:33,726,726 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463193944}
+2020-07-11 18:26:34,726,726 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463194960}
+2020-07-11 18:26:35,744,744 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463195975}
+2020-07-11 18:26:35,744,744 iqoptionapi.ws.client DEBUG {"name":"heartbeat","msg":1594463195975}
+2020-07-11 18:26:36,767,767 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463196991}
+2020-07-11 18:26:37,784,784 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463198006}
+2020-07-11 18:26:38,806,806 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463199024}
+2020-07-11 18:26:39,816,816 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463200041}
+2020-07-11 18:26:40,837,837 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463201056}
+2020-07-11 18:26:41,843,843 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463202072}
+2020-07-11 18:26:42,861,861 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463203087}
+2020-07-11 18:26:43,874,874 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463204103}
+2020-07-11 18:26:44,890,890 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463205119}
+2020-07-11 18:26:45,921,921 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463206134}
+2020-07-11 18:26:45,921,921 iqoptionapi.ws.client DEBUG {"name":"heartbeat","msg":1594463206134}
+2020-07-11 18:26:46,921,921 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463207152}
+2020-07-11 18:26:47,952,952 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463208174}
+2020-07-11 18:26:48,970,970 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463209192}
+2020-07-11 18:26:49,987,987 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463210211}
+2020-07-11 18:26:51,003,3 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463211228}
+2020-07-11 18:26:52,015,15 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463212244}
+2020-07-11 18:26:53,038,38 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463213261}
+2020-07-11 18:26:54,049,49 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463214277}
+2020-07-11 18:26:56,022,22 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463215294}
+2020-07-11 18:26:56,521,521 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463216316}
+2020-07-11 18:26:56,521,521 iqoptionapi.ws.client DEBUG {"name":"heartbeat","msg":1594463216316}
+2020-07-11 18:26:57,115,115 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463217338}
+2020-07-11 18:26:58,131,131 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463218358}
+2020-07-11 18:26:59,148,148 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463219374}
+2020-07-11 18:27:00,947,947 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463220392}
+2020-07-11 18:27:01,181,181 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463221413}
+2020-07-11 18:27:02,197,197 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463222429}
+2020-07-11 18:27:03,218,218 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463223447}
+2020-07-11 18:27:04,244,244 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463224464}
+2020-07-11 18:27:05,262,262 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463225483}
+2020-07-11 18:27:06,277,277 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463226504}
+2020-07-11 18:27:06,277,277 iqoptionapi.ws.client DEBUG {"name":"heartbeat","msg":1594463226504}
+2020-07-11 18:27:07,293,293 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463227521}
+2020-07-11 18:27:08,308,308 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463228541}
+2020-07-11 18:27:09,342,342 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463229560}
+2020-07-11 18:27:10,346,346 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463230579}
+2020-07-11 18:27:11,371,371 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463231598}
+2020-07-11 18:27:12,002,2 iqoptionapi.api DEBUG {"name": "sendMessage", "msg": {"name": "reset-training-balance", "version": "2.0"}, "request_id": ""}
+2020-07-11 18:27:12,314,314 iqoptionapi.ws.client DEBUG {"name":"result","request_id":"","msg":{"success":true}}
+2020-07-11 18:27:12,345,345 iqoptionapi.ws.client DEBUG {"request_id":"","name":"training-balance-reset","msg":{"isSuccessful":false,"message":"User balance equals or exceeds a desired amount"},"status":2000}
+2020-07-11 18:27:12,345,345 iqoptionapi.api DEBUG {"name": "sendMessage", "msg": {"name": "get-balances", "version": "1.0"}, "request_id": 3457937}
+2020-07-11 18:27:12,408,408 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463232616}
+2020-07-11 18:27:12,673,673 iqoptionapi.ws.client DEBUG {"name":"result","request_id":"","msg":{"success":true}}
+2020-07-11 18:27:12,689,689 iqoptionapi.ws.client DEBUG {"request_id":"","name":"balances","msg":[{"id":359423712,"user_id":73193083,"type":1,"amount":0,"enrolled_amount":0,"enrolled_sum_amount":0,"hold_amount":0,"orders_amount":0,"auth_amount":0,"equivalent":0,"currency":"USD","tournament_id":null,"tournament_name":null,"is_fiat":true,"is_marginal":false,"has_deposits":false}, {"id":359423713,"user_id":73193083,"type":4,"amount":10000,"enrolled_amount":10000,"enrolled_sum_amount":10000,"hold_amount":0,"orders_amount":0,"auth_amount":0,"equivalent":0,"currency":"USD","tournament_id":null,"tournament_name":null,"is_fiat":true,"is_marginal":false,"has_deposits":false}, {"id":359423714,"user_id":73193083,"type":5,"amount":0,"enrolled_amount":0,"enrolled_sum_amount":0,"hold_amount":0,"orders_amount":0,"auth_amount":0,"equivalent":0,"currency":"BTC","tournament_id":null,"tournament_name":null,"is_fiat":false,"is_marginal":false,"has_deposits":false}, {"id":359423715,"user_id":73193083,"type":5,"amount":0,"enrolled_amount":0,"enrolled_sum_amount":0,"hold_amount":0,"orders_amount":0,"auth_amount":0,"equivalent":0,"currency":"ETH","tournament_id":null,"tournament_name":null,"is_fiat":false,"is_marginal":false,"has_deposits":false}],"status":0}
+2020-07-11 18:27:13,416,416 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463233636}
+2020-07-11 18:27:14,435,435 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463234656}
+2020-07-11 18:27:15,456,456 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463235677}
+2020-07-11 18:27:16,469,469 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463236695}
+2020-07-11 18:27:16,469,469 iqoptionapi.ws.client DEBUG {"name":"heartbeat","msg":1594463236695}
+2020-07-11 18:27:17,485,485 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463237713}
+2020-07-11 18:27:18,503,503 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463238732}
+2020-07-11 18:27:19,520,520 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463239751}
+2020-07-11 18:27:20,535,535 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463240768}
+2020-07-11 18:27:21,562,562 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463241786}
+2020-07-11 18:27:22,587,587 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463242804}
+2020-07-11 18:27:23,591,591 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463243821}
+2020-07-11 18:27:24,611,611 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463244839}
+2020-07-11 18:27:25,627,627 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463245857}
+2020-07-11 18:27:26,658,658 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463246878}
+2020-07-11 18:27:26,658,658 iqoptionapi.ws.client DEBUG {"name":"heartbeat","msg":1594463246878}
+2020-07-11 18:27:27,669,669 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463247896}
+2020-07-11 18:27:28,688,688 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463248914}
+2020-07-11 18:27:29,708,708 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463249932}
+2020-07-11 18:27:30,723,723 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463250952}
+2020-07-11 18:27:31,739,739 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463251970}
+2020-07-11 18:27:32,768,768 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463252988}
+2020-07-11 18:27:33,775,775 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463254006}
+2020-07-11 18:27:34,794,794 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463255024}
+2020-07-11 18:27:35,826,826 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463256043}
+2020-07-11 18:27:36,830,830 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463257061}
+2020-07-11 18:27:36,830,830 iqoptionapi.ws.client DEBUG {"name":"heartbeat","msg":1594463257061}
+2020-07-11 18:27:37,849,849 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463258080}
+2020-07-11 18:27:38,881,881 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463259099}
+2020-07-11 18:27:39,896,896 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463260117}
+2020-07-11 18:27:40,914,914 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463261133}
+2020-07-11 18:27:41,929,929 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463262147}
+2020-07-11 18:27:42,937,937 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463263165}
+2020-07-11 18:27:43,956,956 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463264182}
+2020-07-11 18:27:44,971,971 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463265200}
+2020-07-11 18:27:45,987,987 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463266218}
+2020-07-11 18:27:47,026,26 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463267235}
+2020-07-11 18:27:47,026,26 iqoptionapi.ws.client DEBUG {"name":"heartbeat","msg":1594463267235}
+2020-07-11 18:27:48,030,30 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463268250}
+2020-07-11 18:27:49,046,46 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463269265}
+2020-07-11 18:27:50,061,61 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463270281}
+2020-07-11 18:27:51,077,77 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463271296}
+2020-07-11 18:27:52,088,88 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463272312}
+2020-07-11 18:27:53,104,104 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463273328}
+2020-07-11 18:27:54,126,126 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463274345}
+2020-07-11 18:27:55,141,141 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463275361}
+2020-07-11 18:27:56,149,149 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463276376}
+2020-07-11 18:27:57,165,165 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463277392}
+2020-07-11 18:27:57,165,165 iqoptionapi.ws.client DEBUG {"name":"heartbeat","msg":1594463277392}
+2020-07-11 18:27:58,181,181 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463278408}
+2020-07-11 18:27:59,197,197 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463279425}
+2020-07-11 18:28:00,213,213 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463280446}
+2020-07-11 18:28:01,248,248 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463281467}
+2020-07-11 18:28:02,264,264 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463282484}
+2020-07-11 18:28:03,275,275 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463283501}
+2020-07-11 18:28:04,293,293 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463284519}
+2020-07-11 18:28:05,205,205 iqoptionapi.api DEBUG POST: https://auth.iqoption.com/api/v1.0/logout headers: {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:70.0 Gecko/20100101 Firefox/70.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} cookies: {'Plutus': 'GOOD', 'ssid': '771c55504319e5cf41551c5b7f2ea5d1'}
+2020-07-11 18:28:05,309,309 iqoptionapi.ws.client DEBUG {"name":"timeSync","msg":1594463285535}
+2020-07-11 18:28:05,507,507 urllib3.connectionpool DEBUG https://auth.iqoption.com:443 "POST /api/v1.0/logout HTTP/1.1" 200 52
+2020-07-11 18:28:05,507,507 iqoptionapi.api DEBUG <Response [200]>
+2020-07-11 18:28:05,507,507 iqoptionapi.api DEBUG {"data":{"ssid":"771c55504319e5cf41551c5b7f2ea5d1"}}
+2020-07-11 18:28:05,507,507 iqoptionapi.api DEBUG {'Server': 'nginx', 'Date': 'Sat, 11 Jul 2020 10:28:05 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '52', 'Connection': 'keep-alive', 'Set-Cookie': 'ssid=771c55504319e5cf41551c5b7f2ea5d1; Path=/; Domain=iqoption.com; Max-Age=0; Secure; SameSite=None', 'Vary': 'Origin', 'X-Tracing-Key': '5dded70a-c86b-4255-84fc-88760aa7f5b1', 'Strict-Transport-Security': 'max-age=15555600', 'X-Content-Type-Options': 'nosniff'}
+2020-07-11 18:28:05,507,507 iqoptionapi.api DEBUG <RequestsCookieJar[]>
