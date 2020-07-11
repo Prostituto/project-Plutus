@@ -129,6 +129,9 @@ dmypy.json
 .pyre/
 
 # Custom
+# .vscode
+.vscode/
+
 # Will not upload image files to the remote server.
 # For privacy and security concerns.
 *.png
