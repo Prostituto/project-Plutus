@@ -140,6 +140,6 @@ dmypy.json
 # Hide them because others might try to use my accounts.
 accounts.py
 
-# test files
 # These files are not necessary.
 test/
+logs/

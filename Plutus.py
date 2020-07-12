@@ -2,8 +2,8 @@ import sys
 import time
 import logging    # Debug mode on
 
-from PyQt5.QtWidgets import (QApplication, QWidget, QGridLayout, QPushButton, QLabel,
-    QLineEdit, QMessageBox)
+from PyQt5.QtWidgets import (QApplication, QWidget, QGridLayout, QVBoxLayout, QHBoxLayout,
+    QGroupBox, QPushButton, QLabel, QLineEdit, QMessageBox)
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import pyqtSlot
 
@@ -13,46 +13,8 @@ from accounts import test_accounts
 
 class Window(QWidget):
     def __init__(self, Plutus, initial_data):
-        # =========================================================================================================================
-        # Python GUI Setup Using PyQt5
-        # =========================================================================================================================
         super().__init__()
-
-        self.grid_layout = QGridLayout()
-
-        # Account Balance
-        self.label_balance = QLabel(self)
-        self.label_balance.setText("Balance: ")
-        self.grid_layout.addWidget(self.label_balance, 0, 0)
-        self.label_balance_value = QLabel(self)
-        self.grid_layout.addWidget(self.label_balance_value, 0, 1)
-
-        # Currency Type
-        self.label_currency_type = QLabel(self)
-        self.label_currency_type.setText("Currency Type: ")
-        self.grid_layout.addWidget(self.label_currency_type, 1, 0)
-        self.label_currency_type_value = QLabel(self)
-        self.grid_layout.addWidget(self.label_currency_type_value, 1, 1)
-        
-        # Reset Balance Button
-        self.button_reset_balance = QPushButton(self)
-        self.button_reset_balance.setText("Reset Balance")
-        self.button_reset_balance.clicked.connect(self.reset_balance)
-        self.grid_layout.addWidget(self.button_reset_balance, 2, 0)
-
-        # Refresh Button
-        self.button_refresh = QPushButton(self)
-        self.button_refresh.setText("Refresh")
-        self.button_refresh.clicked.connect(self.refresh_everything)
-        self.grid_layout.addWidget(self.button_refresh, 3, 0)
-
-        self.setLayout(self.grid_layout)
-        self.setGeometry(300, 300, 200, 200)
-        self.setWindowTitle("Project Plutus - Main Window")
-        self.show()
-        # =========================================================================================================================
-        # End of: Python GUI Setup Using PyQt5
-        # =========================================================================================================================
+        self.initialize_GUI()
 
         # Global Variables --------------------------------------------------------------------------------------------------------
         self.Plutus = Plutus
@@ -76,7 +38,56 @@ class Window(QWidget):
         self.set_balance_gui(self.balance)
         self.set_currency_type_gui(self.currency_type)
 
-    # Mutator Fucntions -----------------------------------------------------------------------------------------------------------
+    def initialize_GUI(self):
+        # =========================================================================================================================
+        # Python GUI Setup Using PyQt5
+        # =========================================================================================================================
+        grid_main = QGridLayout()
+        grid_main.setSpacing(10)
+
+        grid_account_info = QGridLayout()
+        grid_account_info.setSpacing(10)
+
+        # Account Balance
+        label_balance = QLabel("Balance:")
+        self.label_balance_value = QLabel()
+
+        grid_account_info.addWidget(label_balance, 0, 0)
+        grid_account_info.addWidget(self.label_balance_value, 0, 1)
+
+        # Currency Type
+        label_currency_type = QLabel("Currency Type:")
+        self.label_currency_type_value = QLabel(self)
+
+        grid_account_info.addWidget(label_currency_type, 1, 0)
+        grid_account_info.addWidget(self.label_currency_type_value, 1, 1)
+        
+        # Reset Balance Button
+        button_reset_balance = QPushButton("Reset Balance")
+        button_reset_balance.clicked.connect(self.reset_balance)
+
+        # Refresh Button
+        button_refresh = QPushButton("Refresh")
+        button_refresh.clicked.connect(self.refresh_everything)
+
+        # Group Box - Account Informaiton
+        group_box_account_info = QGroupBox("Account Information")
+        group_box_account_info.setCheckable(False)
+
+        group_box_account_info.setLayout(grid_account_info)
+
+        # Grid Layout - Main
+        grid_main.addWidget(group_box_account_info, 0, 0)
+
+        self.setLayout(grid_main)
+        self.setGeometry(300, 300, 200, 200)
+        self.setWindowTitle("Project Plutus - Main Window")
+        self.show()
+        # =========================================================================================================================
+        # End of: Python GUI Setup Using PyQt5
+        # =========================================================================================================================
+
+    # Mutator Functions -----------------------------------------------------------------------------------------------------------
     def set_balance_gui(self, balance):
         self.label_balance_value.setText(str(balance))
         self.label_balance_value.adjustSize()
@@ -88,9 +99,9 @@ class Window(QWidget):
         self.label_currency_type_value.adjustSize()
 
         return True
-    # End of: Mutator Fucntions ---------------------------------------------------------------------------------------------------
+    # End of: Mutator Funcions ---------------------------------------------------------------------------------------------------
 
-    # Accessor Fucntions ----------------------------------------------------------------------------------------------------------
+    # Accessor Functions ----------------------------------------------------------------------------------------------------------
     def get_balance_online(self):
         self.balance = self.Plutus.get_balance()
 
@@ -106,9 +117,9 @@ class Window(QWidget):
 
     def get_currency_type_local(self):
         return self.currency_type
-    # End of: Accessor Fucntions --------------------------------------------------------------------------------------------------
+    # End of: Accessor Functions --------------------------------------------------------------------------------------------------
 
-    # Utility Fucntions -----------------------------------------------------------------------------------------------------------
+    # Utility Functions -----------------------------------------------------------------------------------------------------------
     def connect(self):
         self.is_connected, self.connection_status_reason = self.Plutus.connect()    # Connect to iq option server.
 
@@ -142,10 +153,10 @@ class Window(QWidget):
     
     def get_server_timestamp(self):
         return self.Plutus.get_server_timestamp()
-    # End of: Utility Fucntions ---------------------------------------------------------------------------------------------------
+    # End of: Utility Functions ---------------------------------------------------------------------------------------------------
 
 
-if __name__ == "__main__":
+def main():
     current_local_time = str(time.ctime()).replace(":", "-")
     log_file_name = current_local_time + " iq_option_connection"
 
@@ -198,6 +209,11 @@ if __name__ == "__main__":
     else:
         print("######### [ FAIL ] >> First Connection Attempt to the iq option Server #########")
         print("######### [ REASON ] >>", connection_status_reason, "#########")
+
+
+if __name__ == "__main__":
+    main()
+    
 
 
 """
