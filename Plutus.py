@@ -1,5 +1,6 @@
 import sys
 import time
+# import json
 import logging    # Debug mode on
 
 from PyQt5.QtWidgets import (QApplication, QWidget, QGridLayout, QVBoxLayout, QHBoxLayout,
@@ -11,10 +12,54 @@ from iqoptionapi.stable_api import IQ_Option
 from accounts import test_accounts
 
 
+class Logic():
+    def __init__(self):
+        # Initialize IQ Option API
+        self.Plutus = IQ_Option(test_accounts["email_1"], test_accounts["password_1"])
+
+        # Global Variables --------------------------------------------------------------------------------------------------------
+        acct_data = self.get_acct_data_online()
+        self.set_global_variables(acct_data)
+
+        self.is_connected = False
+        self.connection_status_reason = ""
+        # End of: Global Variables ------------------------------------------------------------------------------------------------
+    
+    # Utility Functions
+    def connect_to_server(self):
+        self.is_connected, self.connection_status_reason =  self.Plutus.connect()
+
+    # Getter Functions
+    def get_balances_online(self):
+        pass
+
+    def get_acct_data_online(self):
+        return self.Plutus.get_profile_ansyc()
+
+    # Setter Functions
+    def set_global_variables(self, acct_data):
+        self.id = acct_data["id"]
+        self.name = acct_data["name"]
+        self.nickname = acct_data["nickname"]
+        self.gender = acct_data["gender"]
+        self.birthdate = acct_data["birthdate"]
+        self.nationality = acct_data["nationality"]
+        self.address = acct_data["address"]
+        self.email = acct_data["email"]
+        self.phone = acct_data["phone"]
+        
+        self.balances = acct_data["balances"]
+        self.balance = acct_data["balance"]
+        self.balance_id = acct_data["balance_id"]
+        self.balance_type = acct_data["balance_type"]
+        self.currency = acct_data["currency"]
+        self.currency_char = acct_data["currency_char"]
+
+
 class Window(QWidget):
     def __init__(self, Plutus, initial_data):
         super().__init__()
-        self.initialize_GUI()
+        self.initialize_UI()
 
         # Global Variables --------------------------------------------------------------------------------------------------------
         self.Plutus = Plutus
@@ -38,28 +83,25 @@ class Window(QWidget):
         self.set_balance_gui(self.balance)
         self.set_currency_type_gui(self.currency_type)
 
-    def initialize_GUI(self):
+    def initialize_UI(self):
         # =========================================================================================================================
         # Python GUI Setup Using PyQt5
         # =========================================================================================================================
-        grid_main = QGridLayout()
-        grid_main.setSpacing(10)
-
         grid_account_info = QGridLayout()
         grid_account_info.setSpacing(10)
 
         # Account Balance
         label_balance = QLabel("Balance:")
-        self.label_balance_value = QLabel()
-
         grid_account_info.addWidget(label_balance, 0, 0)
+
+        self.label_balance_value = QLabel()
         grid_account_info.addWidget(self.label_balance_value, 0, 1)
 
         # Currency Type
         label_currency_type = QLabel("Currency Type:")
-        self.label_currency_type_value = QLabel(self)
-
         grid_account_info.addWidget(label_currency_type, 1, 0)
+
+        self.label_currency_type_value = QLabel(self)
         grid_account_info.addWidget(self.label_currency_type_value, 1, 1)
         
         # Reset Balance Button
@@ -77,6 +119,8 @@ class Window(QWidget):
         group_box_account_info.setLayout(grid_account_info)
 
         # Grid Layout - Main
+        grid_main = QGridLayout()
+        grid_main.setSpacing(10)
         grid_main.addWidget(group_box_account_info, 0, 0)
 
         self.setLayout(grid_main)
@@ -157,11 +201,19 @@ class Window(QWidget):
 
 
 def main():
+    Plutus = Logic()
+
     current_local_time = str(time.ctime()).replace(":", "-")
     log_file_name = current_local_time + " iq_option_connection"
 
+    """
     logging.basicConfig(filename="logs/" + log_file_name + ".log",
                         format="%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s",
+                        # datefmt="%H:%M:%S",
+                        level=logging.DEBUG)    # Debug mode on
+    """
+
+    logging.basicConfig(format="%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s",
                         # datefmt="%H:%M:%S",
                         level=logging.DEBUG)    # Debug mode on
 
@@ -180,11 +232,12 @@ def main():
     if is_connected:
         print("######### [ Success ] >> First Connection Attempt to the iq option Server #########")
 
+
         initial_data = {
-            "iq_option_API_version": IQ_Option.__version__,
-            "is_connected": Plutus.check_connect(),
+            "iq_option_API_version": "",    # IQ_Option.__version__
+            "is_connected": Plutus.check_connect(),    # Plutus.check_connect()
             "connection_status_reason": connection_status_reason,
-            "server_timestamp": Plutus.get_server_timestamp(),
+            "server_timestamp": Plutus.get_server_timestamp(),    # Plutus.get_server_timestamp()
 
             "digital_option_name": "live-deal-digital-option",    # "live-deal-digital-option" / "live-deal-binary-option-placed"
             "digital_option_active": "EURUSD",    # And much more
@@ -197,8 +250,8 @@ def main():
             "binary_option_buffer_size": 10,    # I do not know what this is.
 
             "balance_type": "PRACTICE",    # "PRACTICE" / "REAL"
-            "balance": Plutus.get_balance(),
-            "currency_type": Plutus.get_currency()
+            "balance": "Plutus.get_balance()",    # Plutus.get_balance()
+            "currency_type": "Plutus.get_currency()"    # Plutus.get_currency()
         }
 
         # Pyhton GUI Initialization
