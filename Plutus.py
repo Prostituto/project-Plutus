@@ -16,74 +16,101 @@ class Logic():
     def __init__(self):
         # Initialize IQ Option API
         self.Plutus = IQ_Option(test_accounts["email_1"], test_accounts["password_1"])
+        response = self.connect_to_server()
 
-        # Global Variables --------------------------------------------------------------------------------------------------------
-        acct_data = self.get_acct_data_online()
-        self.set_global_variables(acct_data)
+        if response["is_connected"]:
+            print("######### [ Success ] >> First Connection Attempt to the iq option Server #########")
 
-        self.is_connected = False
-        self.connection_status_reason = ""
-        # End of: Global Variables ------------------------------------------------------------------------------------------------
+            # Global Variables --------------------------------------------------------------------------------------------------------
+            # All User Information Plus Balances and Others
+            self.acct_data = self.get_acct_data_online()
+
+            # User Information
+            self.id = self.acct_data["id"]
+            self.name = self.acct_data["name"]
+            self.nickname = self.acct_data["nickname"]
+            self.gender = self.acct_data["gender"]
+            self.birthdate = self.acct_data["birthdate"]
+            self.nationality = self.acct_data["nationality"]
+            self.address = self.acct_data["address"]
+            self.email = self.acct_data["email"]
+            self.phone = self.acct_data["phone"]
+            
+            # Other/All Account Balances Data
+            self.balances = self.acct_data["balances"]
+            self.real_balance = self.balances[0]
+            self.practice_balance = self.balances[1]
+
+            # Current Account Balance Data
+            self.balance = self.acct_data["balance"]
+            self.balance_id = self.acct_data["balance_id"]
+            self.balance_type = self.acct_data["balance_type"]
+            self.currency = self.acct_data["currency"]
+            self.currency_char = self.acct_data["currency_char"]
+            # End of: Global Variables ------------------------------------------------------------------------------------------------
+
+            # Utility Variables -------------------------------------------------------------------------------------------------------
+            self.is_connected = response["is_connected"]
+            self.connection_status_reason = response["connection_status_reason"]
+
+            self.iq_option_api_version = self.get_iq_option_api_version()
+            self.server_timestamp = self.get_server_timestamp()
+
+            self.error_password = "{"\
+                "\"code\":\"invalid_credentials\","\
+                "\"message\":\"You entered the wrong credentials. Please check that the login/password is correct.\""\
+            "}"
+            # End of: Utility Variables -----------------------------------------------------------------------------------------------
+        else:
+            print("######### [ FAIL ] >> First Connection Attempt to the iq option Server #########")
+            print("######### [ REASON ] >>", response["connection_status_reason"], "#########")
     
     # Utility Functions
+    def get_iq_option_api_version(self):
+        return IQ_Option.__version__
+
     def connect_to_server(self):
-        self.is_connected, self.connection_status_reason =  self.Plutus.connect()
+        is_connected, connection_status_reason =  self.Plutus.connect()
+
+        return {
+            "is_connected": is_connected,
+            "connection_status_reason": connection_status_reason
+        }
+
+    def check_connection(self):
+        return self.Plutus.check_connect()
+
+    def get_server_timestamp(self):
+        return self.Plutus.get_server_timestamp()
 
     # Getter Functions
-    def get_balances_online(self):
-        pass
-
     def get_acct_data_online(self):
         return self.Plutus.get_profile_ansyc()
 
+    def get_balances_data_online(self):
+        return self.Plutus.get_balances()
+
+    def get_real_balance_data(self, balances):
+        return balances[0]
+
+    def get_practice_balance_data(self, balances):
+        return balances[1]
+
     # Setter Functions
-    def set_global_variables(self, acct_data):
-        self.id = acct_data["id"]
-        self.name = acct_data["name"]
-        self.nickname = acct_data["nickname"]
-        self.gender = acct_data["gender"]
-        self.birthdate = acct_data["birthdate"]
-        self.nationality = acct_data["nationality"]
-        self.address = acct_data["address"]
-        self.email = acct_data["email"]
-        self.phone = acct_data["phone"]
-        
-        self.balances = acct_data["balances"]
-        self.balance = acct_data["balance"]
-        self.balance_id = acct_data["balance_id"]
-        self.balance_type = acct_data["balance_type"]
-        self.currency = acct_data["currency"]
-        self.currency_char = acct_data["currency_char"]
 
 
 class Window(QWidget):
     def __init__(self, Plutus, initial_data):
         super().__init__()
-        self.initialize_UI()
+        self.initialize_gui()
 
         # Global Variables --------------------------------------------------------------------------------------------------------
-        self.Plutus = Plutus
-        self.iq_option_API_version = initial_data["iq_option_API_version"]
-        self.is_connected = initial_data["is_connected"]
-        self.connection_status_reason = initial_data["connection_status_reason"]
-        self.server_timestamp = initial_data["server_timestamp"]
-
-        self.balance = initial_data["balance"]
-        self.currency_type = initial_data["currency_type"]
         # End of: Global Variables ------------------------------------------------------------------------------------------------
 
         # Utility Variables -------------------------------------------------------------------------------------------------------
-        self.error_password = "{"\
-            "\"code\":\"invalid_credentials\","\
-            "\"message\":\"You entered the wrong credentials. Please check that the login/password is correct.\""\
-        "}"
         # End of: Utility Variables -----------------------------------------------------------------------------------------------
 
-        # Initialize Values
-        self.set_balance_gui(self.balance)
-        self.set_currency_type_gui(self.currency_type)
-
-    def initialize_UI(self):
+    def initialize_gui(self):
         # =========================================================================================================================
         # Python GUI Setup Using PyQt5
         # =========================================================================================================================
@@ -146,21 +173,6 @@ class Window(QWidget):
     # End of: Mutator Funcions ---------------------------------------------------------------------------------------------------
 
     # Accessor Functions ----------------------------------------------------------------------------------------------------------
-    def get_balance_online(self):
-        self.balance = self.Plutus.get_balance()
-
-        return self.balance
-
-    def get_balance_local(self):
-        return self.balance
-
-    def get_currency_type_online(self):
-        self.currency_type = self.Plutus.get_currency()
-
-        return self.currency_type()
-
-    def get_currency_type_local(self):
-        return self.currency_type
     # End of: Accessor Functions --------------------------------------------------------------------------------------------------
 
     # Utility Functions -----------------------------------------------------------------------------------------------------------
@@ -176,21 +188,6 @@ class Window(QWidget):
 
             return False
 
-    def check_connection(self):
-        return self.Plutus.check_connect()
-
-    def refresh_everything(self):
-        return True
-
-    def reset_balance(self):
-        self.Plutus.reset_practice_balance()
-        self.balance = self.get_balance_online()
-
-        print("#########", self.balance, "#########")
-
-        self.label_balance_value.setText(str(self.balance))
-
-        return self.balance
 
     def get_iq_option_API_version(self):
         return IQ_Option.__version__
