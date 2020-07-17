@@ -14,12 +14,38 @@ from accounts import test_accounts
 
 class Logic():
     def __init__(self):
-        # Initialize IQ Option API
+        # Initialize the IQ Option API
         self.Plutus = IQ_Option(test_accounts["email_1"], test_accounts["password_1"])
-        response = self.connect_to_server()
 
-        if response["is_connected"]:
+        # Utility Variables -----------------------------------------------------------------------------------------------------------
+        self.iq_option_api_version = self.get_iq_option_api_version()
+        self.server_timestamp = 0
+
+        # Connection Status
+        self.is_connected = False
+        self.connection_status_reason = ""
+
+        # Default User-Agent is "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36"
+        self.header = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:70.0 Gecko/20100101 Firefox/70.0"}
+        self.cookie = {"Plutus": "GOOD"}
+
+        # For Authentication
+        self.error_password = "{"\
+            "\"code\":\"invalid_credentials\","\
+            "\"message\":\"You entered the wrong credentials. Please check that the login/password is correct.\""\
+        "}"
+        # End of: Utility Variables ---------------------------------------------------------------------------------------------------
+
+        self.Plutus.set_session(self.header, self.cookie)
+
+        response = self.connect_to_server()
+        self.is_connected = response["is_connected"]
+        self.connection_status_reason = response["connection_status_reason"]
+
+        if self.is_connected:
             print("######### [ Success ] >> First Connection Attempt to the iq option Server #########")
+
+            self.server_timestamp = self.get_server_timestamp()
 
             # Global Variables --------------------------------------------------------------------------------------------------------
             # All User Information Plus Balances and Others
@@ -48,22 +74,9 @@ class Logic():
             self.currency = self.acct_data["currency"]
             self.currency_char = self.acct_data["currency_char"]
             # End of: Global Variables ------------------------------------------------------------------------------------------------
-
-            # Utility Variables -------------------------------------------------------------------------------------------------------
-            self.is_connected = response["is_connected"]
-            self.connection_status_reason = response["connection_status_reason"]
-
-            self.iq_option_api_version = self.get_iq_option_api_version()
-            self.server_timestamp = self.get_server_timestamp()
-
-            self.error_password = "{"\
-                "\"code\":\"invalid_credentials\","\
-                "\"message\":\"You entered the wrong credentials. Please check that the login/password is correct.\""\
-            "}"
-            # End of: Utility Variables -----------------------------------------------------------------------------------------------
         else:
             print("######### [ FAIL ] >> First Connection Attempt to the iq option Server #########")
-            print("######### [ REASON ] >>", response["connection_status_reason"], "#########")
+            print("######### [ REASON ] >>", self.connection_status_reason, "#########")
     
     # Utility Functions
     def get_iq_option_api_version(self):
@@ -99,21 +112,32 @@ class Logic():
     # Setter Functions
 
 
-class Window(QWidget):
-    def __init__(self, Plutus, initial_data):
+class Bridge():
+    def __init__(self):
+        gui = GUI()
+        logic = Logic()
+
+        self.initialize_gui_values()
+
+    def initialize_gui_values(self):
+        pass
+
+
+class GUI(QWidget):
+    def __init__(self):
         super().__init__()
         self.initialize_gui()
 
-        # Global Variables --------------------------------------------------------------------------------------------------------
-        # End of: Global Variables ------------------------------------------------------------------------------------------------
+        # Global Variables ------------------------------------------------------------------------------------------------------------
+        # End of: Global Variables ----------------------------------------------------------------------------------------------------
 
-        # Utility Variables -------------------------------------------------------------------------------------------------------
-        # End of: Utility Variables -----------------------------------------------------------------------------------------------
+        # Utility Variables -----------------------------------------------------------------------------------------------------------
+        # End of: Utility Variables ---------------------------------------------------------------------------------------------------
 
     def initialize_gui(self):
-        # =========================================================================================================================
+        # =============================================================================================================================
         # Python GUI Setup Using PyQt5
-        # =========================================================================================================================
+        # =============================================================================================================================
         grid_account_info = QGridLayout()
         grid_account_info.setSpacing(10)
 
@@ -133,11 +157,11 @@ class Window(QWidget):
         
         # Reset Balance Button
         button_reset_balance = QPushButton("Reset Balance")
-        button_reset_balance.clicked.connect(self.reset_balance)
+        # button_reset_balance.clicked.connect(self.reset_balance)
 
         # Refresh Button
         button_refresh = QPushButton("Refresh")
-        button_refresh.clicked.connect(self.refresh_everything)
+        # button_refresh.clicked.connect(self.refresh_everything)
 
         # Group Box - Account Informaiton
         group_box_account_info = QGroupBox("Account Information")
@@ -154,11 +178,11 @@ class Window(QWidget):
         self.setGeometry(300, 300, 200, 200)
         self.setWindowTitle("Project Plutus - Main Window")
         self.show()
-        # =========================================================================================================================
+        # =============================================================================================================================
         # End of: Python GUI Setup Using PyQt5
-        # =========================================================================================================================
+        # =============================================================================================================================
 
-    # Mutator Functions -----------------------------------------------------------------------------------------------------------
+    # Mutator Functions ---------------------------------------------------------------------------------------------------------------
     def set_balance_gui(self, balance):
         self.label_balance_value.setText(str(balance))
         self.label_balance_value.adjustSize()
@@ -170,101 +194,44 @@ class Window(QWidget):
         self.label_currency_type_value.adjustSize()
 
         return True
-    # End of: Mutator Funcions ---------------------------------------------------------------------------------------------------
+    # End of: Mutator Funcions --------------------------------------------------------------------------------------------------------
 
-    # Accessor Functions ----------------------------------------------------------------------------------------------------------
-    # End of: Accessor Functions --------------------------------------------------------------------------------------------------
+    # Accessor Functions --------------------------------------------------------------------------------------------------------------
+    # End of: Accessor Functions ------------------------------------------------------------------------------------------------------
 
-    # Utility Functions -----------------------------------------------------------------------------------------------------------
-    def connect(self):
-        self.is_connected, self.connection_status_reason = self.Plutus.connect()    # Connect to iq option server.
-
-        if self.is_connected:
-            print("######### [ Success ] >>  Re-connection Attempt to the iq option Server #########")
-
-            return True
-        else:
-            print("#########", self.connection_reason, "#########")
-
-            return False
-
-
-    def get_iq_option_API_version(self):
-        return IQ_Option.__version__
-    
-    def get_server_timestamp(self):
-        return self.Plutus.get_server_timestamp()
-    # End of: Utility Functions ---------------------------------------------------------------------------------------------------
+    # Utility Functions ---------------------------------------------------------------------------------------------------------------
+    # End of: Utility Functions -------------------------------------------------------------------------------------------------------
 
 
 def main():
-    Plutus = Logic()
-
     current_local_time = str(time.ctime()).replace(":", "-")
     log_file_name = current_local_time + " iq_option_connection"
 
     """
+    # Debug mode on
     logging.basicConfig(filename="logs/" + log_file_name + ".log",
                         format="%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s",
                         # datefmt="%H:%M:%S",
-                        level=logging.DEBUG)    # Debug mode on
+                        level=logging.DEBUG)
     """
 
+    # Debug mode on
     logging.basicConfig(format="%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s",
                         # datefmt="%H:%M:%S",
-                        level=logging.DEBUG)    # Debug mode on
+                        level=logging.DEBUG)
 
-    # Initialize
-    Plutus = IQ_Option(test_accounts["email_1"], test_accounts["password_1"])
+    Plutus = Logic()
 
-    # Default User-Agent is "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36"
-    header = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:70.0 Gecko/20100101 Firefox/70.0"}
-    cookie = {"Plutus": "GOOD"}
+    # Pyhton GUI Initialization
+    app = QApplication(sys.argv)
+    gui = GUI()
 
-    Plutus.set_session(header, cookie)
-
-    # First connection attempt to the iq option server.
-    is_connected, connection_status_reason = Plutus.connect()
-
-    if is_connected:
-        print("######### [ Success ] >> First Connection Attempt to the iq option Server #########")
-
-
-        initial_data = {
-            "iq_option_API_version": "",    # IQ_Option.__version__
-            "is_connected": Plutus.check_connect(),    # Plutus.check_connect()
-            "connection_status_reason": connection_status_reason,
-            "server_timestamp": Plutus.get_server_timestamp(),    # Plutus.get_server_timestamp()
-
-            "digital_option_name": "live-deal-digital-option",    # "live-deal-digital-option" / "live-deal-binary-option-placed"
-            "digital_option_active": "EURUSD",    # And much more
-            "digital_option_type": "PT1M",    # "PT1M" / "PT5M" / "PT15M"
-            "digital_option_buffer_size": 10,    # I do not know what this is.
-
-            "binary_option_name": "live-deal-binary-option-placed",    # "live-deal-digital-option" / "live-deal-binary-option-placed"
-            "binary_option_active": "EURUSD",    # And much more
-            "binary_option_type": "turbo",    # "turbo" / "binary"
-            "binary_option_buffer_size": 10,    # I do not know what this is.
-
-            "balance_type": "PRACTICE",    # "PRACTICE" / "REAL"
-            "balance": "Plutus.get_balance()",    # Plutus.get_balance()
-            "currency_type": "Plutus.get_currency()"    # Plutus.get_currency()
-        }
-
-        # Pyhton GUI Initialization
-        app = QApplication(sys.argv)
-        window = Window(Plutus, initial_data)
-
-        sys.exit(app.exec_())
-    else:
-        print("######### [ FAIL ] >> First Connection Attempt to the iq option Server #########")
-        print("######### [ REASON ] >>", connection_status_reason, "#########")
+    sys.exit(app.exec_())
 
 
 if __name__ == "__main__":
     main()
     
-
 
 """
 # =========================================================================================================================
