@@ -15,75 +15,75 @@ from accounts import test_accounts
 class Logic():
     def __init__(self):
         # Initialize the IQ Option API
-        self.Plutus = IQ_Option(test_accounts["email_1"], test_accounts["password_1"])
+        self.__Plutus = IQ_Option(test_accounts["email_1"], test_accounts["password_1"])
 
         # Utility Variables -----------------------------------------------------------------------------------------------------------
-        self.iq_option_api_version = self.get_iq_option_api_version()
-        self.server_timestamp = 0
+        self.__iq_option_api_version = self.get_iq_option_api_version()
+        self.__server_timestamp = 0
 
         # Connection Status
-        self.is_connected = False
-        self.connection_status_reason = ""
+        self.__is_connected = False
+        self.__connection_status_reason = ""
 
         # Default User-Agent is "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36"
-        self.header = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:70.0 Gecko/20100101 Firefox/70.0"}
-        self.cookie = {"Plutus": "GOOD"}
+        self.__header = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:70.0 Gecko/20100101 Firefox/70.0"}
+        self.__cookie = {"Plutus": "GOOD"}
 
         # For Authentication
-        self.error_password = "{"\
+        self.__error_password = "{"\
             "\"code\":\"invalid_credentials\","\
             "\"message\":\"You entered the wrong credentials. Please check that the login/password is correct.\""\
         "}"
         # End of: Utility Variables ---------------------------------------------------------------------------------------------------
 
-        self.Plutus.set_session(self.header, self.cookie)
+        self.__Plutus.set_session(self.__header, self.__cookie)
 
         response = self.connect_to_server()
-        self.is_connected = response["is_connected"]
-        self.connection_status_reason = response["connection_status_reason"]
+        self.__is_connected = response["is_connected"]
+        self.__connection_status_reason = response["connection_status_reason"]
 
-        if self.is_connected:
+        if self.__is_connected:
             print("######### [ Success ] >> First Connection Attempt to the iq option Server #########")
 
-            self.server_timestamp = self.get_server_timestamp()
+            self.__server_timestamp = self.get_server_timestamp()
 
             # Global Variables --------------------------------------------------------------------------------------------------------
             # All User Information Plus Balances and Others
-            self.acct_data = self.get_acct_data_online()
+            self.__acct_data = self.get_acct_data_online()
 
             # User Information
-            self.id = self.acct_data["id"]
-            self.name = self.acct_data["name"]
-            self.nickname = self.acct_data["nickname"]
-            self.gender = self.acct_data["gender"]
-            self.birthdate = self.acct_data["birthdate"]
-            self.nationality = self.acct_data["nationality"]
-            self.address = self.acct_data["address"]
-            self.email = self.acct_data["email"]
-            self.phone = self.acct_data["phone"]
+            self.__id = self.__acct_data["id"]
+            self.__name = self.__acct_data["name"]
+            self.__nickname = self.__acct_data["nickname"]
+            self.__gender = self.__acct_data["gender"]
+            self.__birthdate = self.__acct_data["birthdate"]
+            self.__nationality = self.__acct_data["nationality"]
+            self.__address = self.__acct_data["address"]
+            self.__email = self.__acct_data["email"]
+            self.__phone = self.__acct_data["phone"]
             
             # Other/All Account Balances Data
-            self.balances = self.acct_data["balances"]
-            self.real_balance = self.balances[0]
-            self.practice_balance = self.balances[1]
+            self.__balances = self.__acct_data["balances"]
+            self.__real_balance = self.__balances[0]
+            self.__practice_balance = self.__balances[1]
 
             # Current Account Balance Data
-            self.balance = self.acct_data["balance"]
-            self.balance_id = self.acct_data["balance_id"]
-            self.balance_type = self.acct_data["balance_type"]
-            self.currency = self.acct_data["currency"]
-            self.currency_char = self.acct_data["currency_char"]
+            self.__balance = self.__acct_data["balance"]
+            self.__balance_id = self.__acct_data["balance_id"]
+            self.__balance_type = self.__acct_data["balance_type"]
+            self.__currency = self.__acct_data["currency"]
+            self.__currency_char = self.__acct_data["currency_char"]
             # End of: Global Variables ------------------------------------------------------------------------------------------------
         else:
             print("######### [ FAIL ] >> First Connection Attempt to the iq option Server #########")
-            print("######### [ REASON ] >>", self.connection_status_reason, "#########")
+            print("######### [ REASON ] >>", self.__connection_status_reason, "#########")
     
     # Utility Functions
     def get_iq_option_api_version(self):
         return IQ_Option.__version__
 
     def connect_to_server(self):
-        is_connected, connection_status_reason =  self.Plutus.connect()
+        is_connected, connection_status_reason =  self.__Plutus.connect()
 
         return {
             "is_connected": is_connected,
@@ -91,17 +91,17 @@ class Logic():
         }
 
     def check_connection(self):
-        return self.Plutus.check_connect()
+        return self.__Plutus.check_connect()
 
     def get_server_timestamp(self):
-        return self.Plutus.get_server_timestamp()
+        return self.__Plutus.get_server_timestamp()
 
     # Getter Functions
     def get_acct_data_online(self):
-        return self.Plutus.get_profile_ansyc()
+        return self.__Plutus.get_profile_ansyc()
 
     def get_balances_data_online(self):
-        return self.Plutus.get_balances()
+        return self.__Plutus.get_balances()
 
     def get_real_balance_data(self, balances):
         return balances[0]
@@ -138,43 +138,43 @@ class GUI(QWidget):
         # =============================================================================================================================
         # Python GUI Setup Using PyQt5
         # =============================================================================================================================
-        grid_account_info = QGridLayout()
-        grid_account_info.setSpacing(10)
+        __grid_account_info = QGridLayout()
+        __grid_account_info.setSpacing(10)
 
         # Account Balance
-        label_balance = QLabel("Balance:")
-        grid_account_info.addWidget(label_balance, 0, 0)
+        __label_balance = QLabel("Balance:")
+        __grid_account_info.addWidget(__label_balance, 0, 0)
 
-        self.label_balance_value = QLabel()
-        grid_account_info.addWidget(self.label_balance_value, 0, 1)
+        self.__label_balance_value = QLabel()
+        __grid_account_info.addWidget(self.__label_balance_value, 0, 1)
 
         # Currency Type
-        label_currency_type = QLabel("Currency Type:")
-        grid_account_info.addWidget(label_currency_type, 1, 0)
+        __label_currency_type = QLabel("Currency Type:")
+        __grid_account_info.addWidget(__label_currency_type, 1, 0)
 
-        self.label_currency_type_value = QLabel(self)
-        grid_account_info.addWidget(self.label_currency_type_value, 1, 1)
+        self.__label_currency_type_value = QLabel(self)
+        __grid_account_info.addWidget(self.__label_currency_type_value, 1, 1)
         
         # Reset Balance Button
-        button_reset_balance = QPushButton("Reset Balance")
+        __button_reset_balance = QPushButton("Reset Balance")
         # button_reset_balance.clicked.connect(self.reset_balance)
 
         # Refresh Button
-        button_refresh = QPushButton("Refresh")
+        __button_refresh = QPushButton("Refresh")
         # button_refresh.clicked.connect(self.refresh_everything)
 
         # Group Box - Account Informaiton
-        group_box_account_info = QGroupBox("Account Information")
-        group_box_account_info.setCheckable(False)
+        __group_box_account_info = QGroupBox("Account Information")
+        __group_box_account_info.setCheckable(False)
 
-        group_box_account_info.setLayout(grid_account_info)
+        __group_box_account_info.setLayout(__grid_account_info)
 
         # Grid Layout - Main
-        grid_main = QGridLayout()
-        grid_main.setSpacing(10)
-        grid_main.addWidget(group_box_account_info, 0, 0)
+        __grid_main = QGridLayout()
+        __grid_main.setSpacing(10)
+        __grid_main.addWidget(__group_box_account_info, 0, 0)
 
-        self.setLayout(grid_main)
+        self.setLayout(__grid_main)
         self.setGeometry(300, 300, 200, 200)
         self.setWindowTitle("Project Plutus - Main Window")
         self.show()
@@ -184,14 +184,14 @@ class GUI(QWidget):
 
     # Mutator Functions ---------------------------------------------------------------------------------------------------------------
     def set_balance_gui(self, balance):
-        self.label_balance_value.setText(str(balance))
-        self.label_balance_value.adjustSize()
+        self.__label_balance_value.setText(str(balance))
+        self.__label_balance_value.adjustSize()
 
         return True
 
     def set_currency_type_gui(self, currency_type):
-        self.label_currency_type_value.setText(currency_type)
-        self.label_currency_type_value.adjustSize()
+        self.__label_currency_type_value.setText(currency_type)
+        self.__label_currency_type_value.adjustSize()
 
         return True
     # End of: Mutator Funcions --------------------------------------------------------------------------------------------------------
