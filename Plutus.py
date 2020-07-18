@@ -3,7 +3,7 @@ import time
 # import json
 import logging    # Debug mode on
 
-from PyQt5.QtWidgets import (QApplication, QWidget, QGridLayout, QVBoxLayout, QHBoxLayout,
+from PyQt5.QtWidgets import (QApplication, QWidget, QGridLayout, QMenuBar,
     QGroupBox, QPushButton, QLabel, QLineEdit, QMessageBox)
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import pyqtSlot
@@ -328,15 +328,72 @@ class GUI(QWidget):
         # Utility Variables -------------------------------------------------------------------------------------------------------------------
         # End of: Utility Variables -----------------------------------------------------------------------------------------------------------
 
+    # Utility Functions -----------------------------------------------------------------------------------------------------------------------
     def initialize_gui(self):
         # =====================================================================================================================================
         # Python GUI Setup Using PyQt5
         # =====================================================================================================================================
         # Grid Layout - Main
-        __grid_main = QGridLayout()
-        __grid_main.setSpacing(10)
+        self.__grid_main = QGridLayout()
+        self.__grid_main.setSpacing(10)
 
-        # Initialize User Information Widgets -------------------------------------------------------------------------------------------------
+        self.initialize_menu_bar()
+        self.initialize_user_information()
+        self.initialize_balances_information()
+
+        self.setLayout(self.__grid_main)
+        self.setGeometry(300, 300, 200, 200)
+        self.setWindowTitle("Project Plutus - Main Window")
+        self.show()
+        # =====================================================================================================================================
+        # End of: Python GUI Setup Using PyQt5
+        # =====================================================================================================================================
+    
+    def initialize_menu_bar(self):
+        __menu_bar = QMenuBar()
+
+        # Menu - File
+        __menu_file = __menu_bar.addMenu("File")
+
+        __menu_file.addAction("New")
+        __menu_file.addAction("Open")
+        __menu_file.addAction("Save")
+        __menu_file.addAction("Save as")
+
+        __menu_file.addSeparator()
+
+        __menu_file.addAction("Quit")
+
+        # Menu - Edit
+        __menu_edit = __menu_bar.addMenu("Edit")
+
+        __menu_edit.addAction("Layout")
+
+        # Menu - View
+        __menu_view = __menu_bar.addMenu("View")
+
+        __menu_view.addAction("Fullscreen")
+
+        __menu_view.addSeparator()
+
+        __menu_view.addAction("Maximize")
+        __menu_view.addAction("Minimize")
+
+        # Menu - Help
+        __menu_help = __menu_bar.addMenu("Help")
+        
+        __menu_help.addAction("Documentation")
+        __menu_help.addAction("Setiings")
+
+        __menu_help.addSeparator()
+
+        __menu_help.addAction("Check for Updates")
+        __menu_help.addAction("About")
+
+        self.__grid_main.addWidget(__menu_bar, 0, 0, 1, 2)
+
+
+    def initialize_user_information(self):
         # Group Box - User Informaiton
         __group_box_user_info = QGroupBox("User Information")
         __group_box_user_info.setCheckable(False)
@@ -410,10 +467,9 @@ class GUI(QWidget):
 
         __group_box_user_info.setLayout(__grid_user_info)
 
-        __grid_main.addWidget(__group_box_user_info, 0, 0)
-        # End of: Initialize User Information Widgets -----------------------------------------------------------------------------------------
+        self.__grid_main.addWidget(__group_box_user_info, 1, 0)
 
-        # Initialize the Balances Information Widgets -----------------------------------------------------------------------------------------
+    def initialize_balances_information(self):
         # Group Box - Balances Information
         __group_box_balances_info = QGroupBox("Balances Information")
         __group_box_balances_info.setCheckable(False)
@@ -431,16 +487,9 @@ class GUI(QWidget):
 
         __group_box_balances_info.setLayout(__grid_balances_info)
 
-        __grid_main.addWidget(__group_box_balances_info, 0, 1)
-        # End of: Initialize the Balance Information Widgets ----------------------------------------------------------------------------------
-
-        self.setLayout(__grid_main)
-        self.setGeometry(300, 300, 200, 200)
-        self.setWindowTitle("Project Plutus - Main Window")
-        self.show()
-        # =====================================================================================================================================
-        # End of: Python GUI Setup Using PyQt5
-        # =====================================================================================================================================
+        self.__grid_main.addWidget(__group_box_balances_info, 1, 1)
+    # End of: Utility Functions ---------------------------------------------------------------------------------------------------------------
+    
 
     # Setter Functions ------------------------------------------------------------------------------------------------------------------------
     # User Information Widgets ----------------------------------------------------------------------------------------------------------------
@@ -500,9 +549,6 @@ class GUI(QWidget):
 
     # Accessor Functions ----------------------------------------------------------------------------------------------------------------------
     # End of: Accessor Functions --------------------------------------------------------------------------------------------------------------
-
-    # Utility Functions -----------------------------------------------------------------------------------------------------------------------
-    # End of: Utility Functions ---------------------------------------------------------------------------------------------------------------
 
 
 def main():
