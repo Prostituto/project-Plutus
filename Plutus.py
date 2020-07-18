@@ -69,9 +69,9 @@ class API():
             self.__practice_balance_data = self.__balances_data[1]
 
             # Current Basic Balance Type Data
-            self.__balance = self.__acct_data["balance"]
-            self.__balance_id = self.__acct_data["balance_id"]
             self.__balance_type = self.__acct_data["balance_type"]
+            self.__balance_id = self.__acct_data["balance_id"]
+            self.__balance = self.__acct_data["balance"]
             self.__currency = self.__acct_data["currency"]
             self.__currency_char = self.__acct_data["currency_char"]
             # End of: Global Variables --------------------------------------------------------------------------------------------------------
@@ -277,21 +277,43 @@ class Logic():
         sys.exit(app.exec_())
 
     def initialize_gui_values(self):
-        # Initialize Current User Information Data Display ------------------------------------------------------------------------------------
+        # Display Initial User Information Data -----------------------------------------------------------------------------------------------
         self.gui.set_user_id(self.api.get_user_id())    # User ID
         self.gui.set_name(self.api.get_name())    # Name
         self.gui.set_nickname(self.api.get_nickname())    # Nickname
         self.gui.set_gender(self.api.get_gender())    # Gender
 
         # Birthdate
-        birthdate = time.ctime(int(self.api.get_birthdate()))
+        birthdate = self.timestamp_to_readable_time(self.api.get_server_timestamp())
         self.gui.set_birthdate(birthdate) 
 
         self.gui.set_nationality(self.api.get_nationality())    # Nationality
         self.gui.set_address(self.api.get_address())    # Address
         self.gui.set_email(self.api.get_email())    # Email
         self.gui.set_phone(self.api.get_phone())    # Phone
-        # End of: Initialize Current User Information Data Display ----------------------------------------------------------------------------
+        # End of: Display Initial User Information Data ---------------------------------------------------------------------------------------
+
+        # Display Initial Balances Information Data -------------------------------------------------------------------------------------------
+        # Balance Type
+        balance_type = self.determine_balance_type(self.api.get_balance_type())
+        self.gui.set_balance_type(balance_type)
+        # End of: Display Initial Balances Information Data -----------------------------------------------------------------------------------
+
+    # Utility Functions -----------------------------------------------------------------------------------------------------------------------
+    def timestamp_to_readable_time(self, timestamp):
+        return time.ctime(int(timestamp))
+
+    def determine_balance_type(self, balance_type):
+        if balance_type == 1:
+            return "Real"
+        elif balance_type == 4:
+            return "Practice"
+        elif balance_type == 5:
+            return "Bitcoin/Ethereum"
+        else:
+            return str(balance_type)
+        
+    # End of: Utility Functions ---------------------------------------------------------------------------------------------------------------
 
 
 class GUI(QWidget):
@@ -315,6 +337,10 @@ class GUI(QWidget):
         __grid_main.setSpacing(10)
 
         # Initialize User Information Widgets -------------------------------------------------------------------------------------------------
+        # Group Box - User Informaiton
+        __group_box_user_info = QGroupBox("User Information")
+        __group_box_user_info.setCheckable(False)
+        
         # Grid Layout - User Information 
         __grid_user_info = QGridLayout()
         __grid_user_info.setSpacing(10)
@@ -382,14 +408,31 @@ class GUI(QWidget):
         self.__lbl_phone_value = QLabel()
         __grid_user_info.addWidget(self.__lbl_phone_value, 8, 1)
 
-        # Group Box - Current User Informaiton
-        __group_box_user_info = QGroupBox("User Information")
-        __group_box_user_info.setCheckable(False)
-
         __group_box_user_info.setLayout(__grid_user_info)
-        
+
         __grid_main.addWidget(__group_box_user_info, 0, 0)
         # End of: Initialize User Information Widgets -----------------------------------------------------------------------------------------
+
+        # Initialize the Balances Information Widgets -----------------------------------------------------------------------------------------
+        # Group Box - Balances Information
+        __group_box_balances_info = QGroupBox("Balances Information")
+        __group_box_balances_info.setCheckable(False)
+        
+        # Grid Layout - Balances Information
+        __grid_balances_info = QGridLayout()
+        __grid_balances_info.setSpacing(10)
+
+        # Current Account Balance Type
+        __lbl_balance_type = QLabel("Balance Type:")
+        __grid_balances_info.addWidget(__lbl_balance_type, 0, 0)
+
+        self.__lbl_balance_type_value = QLabel()
+        __grid_balances_info.addWidget(self.__lbl_balance_type_value, 0, 1)
+
+        __group_box_balances_info.setLayout(__grid_balances_info)
+
+        __grid_main.addWidget(__group_box_balances_info, 0, 1)
+        # End of: Initialize the Balance Information Widgets ----------------------------------------------------------------------------------
 
         self.setLayout(__grid_main)
         self.setGeometry(300, 300, 200, 200)
@@ -400,6 +443,7 @@ class GUI(QWidget):
         # =====================================================================================================================================
 
     # Setter Functions ------------------------------------------------------------------------------------------------------------------------
+    # User Information Widgets ----------------------------------------------------------------------------------------------------------------
     # Set Current User/Account ID
     def set_user_id(self, user_id):
         self.__lbl_user_id_value.setText(str(user_id))
@@ -444,11 +488,14 @@ class GUI(QWidget):
     def set_phone(self, phone):
         self.__lbl_phone_value.setText(str(phone))
         self.__lbl_phone_value.adjustSize()
+    # End of: User Information Widgets --------------------------------------------------------------------------------------------------------
 
+    # Balances Information Widgets ------------------------------------------------------------------------------------------------------------
     # Set Current Account Type Value
     def set_balance_type(self, balance_type):
         self.__lbl_balance_type_value.setText(str(balance_type))
         self.__lbl_balance_type_value.adjustSize()
+    # End of: Balances Information Widgets ----------------------------------------------------------------------------------------------------
     # End of: Setter Funcions -----------------------------------------------------------------------------------------------------------------
 
     # Accessor Functions ----------------------------------------------------------------------------------------------------------------------
