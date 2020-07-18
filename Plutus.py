@@ -17,7 +17,7 @@ class API():
         # Initialize the IQ Option API
         self.__Plutus = IQ_Option(test_accounts["email_1"], test_accounts["password_1"])
 
-        # Utility Variables -----------------------------------------------------------------------------------------------------------        
+        # Utility Variables -------------------------------------------------------------------------------------------------------------------
         self.__iq_option_api_version = IQ_Option.__version__
         self.__server_timestamp = 0
 
@@ -34,7 +34,7 @@ class API():
             "\"code\":\"invalid_credentials\","\
             "\"message\":\"You entered the wrong credentials. Please check that the login/password is correct.\""\
         "}"
-        # End of: Utility Variables ---------------------------------------------------------------------------------------------------
+        # End of: Utility Variables -----------------------------------------------------------------------------------------------------------
 
         self.__Plutus.set_session(self.__header, self.__cookie)
 
@@ -48,12 +48,12 @@ class API():
 
             self.set_server_timestamp_online()
 
-            # Global Variables --------------------------------------------------------------------------------------------------------
+            # Global Variables ----------------------------------------------------------------------------------------------------------------
             # All User Information Plus Balances and Other Data
             self.__acct_data = self.__Plutus.get_profile_ansyc()
 
             # User Information Data
-            self.__id = self.__acct_data["id"]
+            self.__user_id = self.__acct_data["user_id"]
             self.__name = self.__acct_data["name"]
             self.__nickname = self.__acct_data["nickname"]
             self.__gender = self.__acct_data["gender"]
@@ -69,17 +69,17 @@ class API():
             self.__practice_balance_data = self.__balances_data[1]
 
             # Current Basic Balance Type Data
-            self.__current_balance = self.__acct_data["balance"]
-            self.__current_balance_id = self.__acct_data["balance_id"]
-            self.__current_balance_type = self.__acct_data["balance_type"]
-            self.__current_currency = self.__acct_data["currency"]
-            self.__current_currency_char = self.__acct_data["currency_char"]
-            # End of: Global Variables ------------------------------------------------------------------------------------------------
+            self.__balance = self.__acct_data["balance"]
+            self.__balance_id = self.__acct_data["balance_id"]
+            self.__balance_type = self.__acct_data["balance_type"]
+            self.__currency = self.__acct_data["currency"]
+            self.__currency_char = self.__acct_data["currency_char"]
+            # End of: Global Variables --------------------------------------------------------------------------------------------------------
         else:
             print("######### [ FAIL ] >> First Connection Attempt to the iq option Server #########")
             print("######### [ REASON ] >>", self.__connection_status_reason, "#########")
     
-    # Utility Functions ---------------------------------------------------------------------------------------------------------------
+    # Utility Functions -----------------------------------------------------------------------------------------------------------------------
     def connect_to_server(self):
         is_connected, connection_status_reason =  self.__Plutus.connect()
 
@@ -90,9 +90,9 @@ class API():
 
     def check_connection(self):
         return self.__Plutus.check_connect()
-    # End of: Utility Functions -------------------------------------------------------------------------------------------------------
+    # End of: Utility Functions ---------------------------------------------------------------------------------------------------------------
 
-    # Getter Functions ----------------------------------------------------------------------------------------------------------------
+    # Getter Functions ------------------------------------------------------------------------------------------------------------------------
     # Get the Utility Variables
     def get_plutus(self):
         return self.__Plutus
@@ -113,7 +113,7 @@ class API():
         return self.__header
     
     def get_cookie(self):
-        return self__cookie
+        return self.__cookie
 
     def get_error_password(self):
         self.__error_password
@@ -123,8 +123,8 @@ class API():
         return self.__acct_data
 
     # Get User Information Data
-    def get_id(self):
-        return self.__id
+    def get_user_id(self):
+        return self.__user_id
 
     def get_name(self):
         return self.__name
@@ -161,23 +161,23 @@ class API():
         return balances[1]
 
     # Get the Current Basic Balance Type Data
-    def get_current_balance(self):
-        return self.__current_balance
+    def get_balance(self):
+        return self.__balance
 
-    def get_current_balance_id(self):
-        return self.__current_balance_id
+    def get_balance_id(self):
+        return self.__balance_id
 
-    def get_current_balance_type(self):
-        return self.__current_balance_type
+    def get_balance_type(self):
+        return self.__balance_type
 
-    def ger_current_currency(self):
-        return self.__current_currency
+    def ger_currency(self):
+        return self.__currency
 
-    def get_current_currency_char(self):
-        return self.__current_currency_char
-    # End of: Getter Functions --------------------------------------------------------------------------------------------------------
+    def get_currency_char(self):
+        return self.__currency_char
+    # End of: Getter Functions ----------------------------------------------------------------------------------------------------------------
 
-    # Setter Functions ----------------------------------------------------------------------------------------------------------------
+    # Setter Functions ------------------------------------------------------------------------------------------------------------------------
     # Set the Utility Variables
     def set_iq_option_api(self, email, password):
         self.__Plutus = IQ_Option(email, password)
@@ -197,7 +197,6 @@ class API():
         self.__is_connected = server_response["is_connected"]
     
     def set_connection_status_reason(self, server_response):
-
         self.__connection_status_reason = server_response["is_connected"]
 
     def set_header(self, new_header):
@@ -214,8 +213,8 @@ class API():
         self.__acct_data = self.__Plutus.get_profile_ansyc()
 
     # Set User Information Data
-    def set_id(self, acct_data):
-        self.__id = acct_data["id"]
+    def set_user_id(self, acct_data):
+        self.__user_id = acct_data["user_id"]
     
     def set_name(self, acct_data):
         self.__name = acct_data["name"]
@@ -252,17 +251,17 @@ class API():
         self.__practice_balance_data = balances_data[1]
 
     # Set the Current Basic Balance Type Data
-    def set_current_balance(self, acct_data):
-        self.__current_balance = acct_data["balance"]
+    def set_balance(self, acct_data):
+        self.__balance = acct_data["balance"]
 
-    def set_current_balance_id(self, acct_data):
-        self.__current_balance_id = acct_data["balance_id"]
+    def set_balance_id(self, acct_data):
+        self.__balance_id = acct_data["balance_id"]
     
-    def set_current_balance_type(self, acct_data):
-        self.__current_balance_type = acct_data["balance_type"]
+    def set_balance_type(self, acct_data):
+        self.__balance_type = acct_data["balance_type"]
         
-    def set_current_currency_char(self, acct_data):
-        self.__current_currency_char = acct_data["currency_char"]
+    def set_currency_char(self, acct_data):
+        self.__currency_char = acct_data["currency_char"]
     # End of: Setter Functions ----------------------------------------------------------------------------------------------------------------
 
 
@@ -278,9 +277,21 @@ class Logic():
         sys.exit(app.exec_())
 
     def initialize_gui_values(self):
-        self.gui.set_current_balance(self.api.get_current_balance())
-        self.gui.set_current_currency_type(self.api.get_current_currency_char())
-        pass
+        # Initialize Current User Information Data Display ------------------------------------------------------------------------------------
+        self.gui.set_user_id(self.api.get_user_id())    # User ID
+        self.gui.set_name(self.api.get_name())    # Name
+        self.gui.set_nickname(self.api.get_nickname())    # Nickname
+        self.gui.set_gender(self.api.get_gender())    # Gender
+
+        # Birthdate
+        birthdate = time.ctime(int(self.api.get_birthdate()))
+        self.gui.set_birthdate(birthdate) 
+
+        self.gui.set_nationality(self.api.get_nationality())    # Nationality
+        self.gui.set_address(self.api.get_address())    # Address
+        self.gui.set_email(self.api.get_email())    # Email
+        self.gui.set_phone(self.api.get_phone())    # Phone
+        # End of: Initialize Current User Information Data Display ----------------------------------------------------------------------------
 
 
 class GUI(QWidget):
@@ -289,79 +300,162 @@ class GUI(QWidget):
         
         self.initialize_gui()
 
-        # Global Variables ------------------------------------------------------------------------------------------------------------
-        # End of: Global Variables ----------------------------------------------------------------------------------------------------
+        # Global Variables --------------------------------------------------------------------------------------------------------------------
+        # End of: Global Variables ------------------------------------------------------------------------------------------------------------
 
-        # Utility Variables -----------------------------------------------------------------------------------------------------------
-        # End of: Utility Variables ---------------------------------------------------------------------------------------------------
+        # Utility Variables -------------------------------------------------------------------------------------------------------------------
+        # End of: Utility Variables -----------------------------------------------------------------------------------------------------------
 
     def initialize_gui(self):
-        # =============================================================================================================================
+        # =====================================================================================================================================
         # Python GUI Setup Using PyQt5
-        # =============================================================================================================================
-        __grid_acct_info = QGridLayout()
-        __grid_acct_info.setSpacing(10)
-
-        # Account Balance
-        __lbl_current_balance = QLabel("Balance:")
-        __grid_acct_info.addWidget(__lbl_current_balance, 0, 0)
-
-        self.__lbl_current_balance_value = QLabel()
-        __grid_acct_info.addWidget(self.__lbl_current_balance_value, 0, 1)
-
-        # Currency Type
-        __lbl_current_currency_type = QLabel("Currency Type:")
-        __grid_acct_info.addWidget(__lbl_current_currency_type, 1, 0)
-
-        self.__lbl_current_currency_type_value = QLabel(self)
-        __grid_acct_info.addWidget(self.__lbl_current_currency_type_value, 1, 1)
-        
-        # Reset Balance Button
-        __btn_reset_balance = QPushButton("Reset Balance")
-        # button_reset_balance.clicked.connect(self.reset_balance)
-
-        # Refresh Button
-        __btn_refresh = QPushButton("Refresh")
-        # button_refresh.clicked.connect(self.refresh_everything)
-
-        # Group Box - Account Informaiton
-        __group_box_acct_info = QGroupBox("Account Information")
-        __group_box_acct_info.setCheckable(False)
-
-        __group_box_acct_info.setLayout(__grid_acct_info)
-
+        # =====================================================================================================================================
         # Grid Layout - Main
         __grid_main = QGridLayout()
         __grid_main.setSpacing(10)
-        __grid_main.addWidget(__group_box_acct_info, 0, 0)
+
+        # Initialize User Information Widgets -------------------------------------------------------------------------------------------------
+        # Grid Layout - User Information 
+        __grid_user_info = QGridLayout()
+        __grid_user_info.setSpacing(10)
+
+        # Current User/Account ID
+        __lbl_user_id = QLabel("User ID:")
+        __grid_user_info.addWidget(__lbl_user_id, 0, 0)
+
+        self.__lbl_user_id_value = QLabel()
+        __grid_user_info.addWidget(self.__lbl_user_id_value, 0, 1)
+
+        # Current Account Name
+        __lbl_name = QLabel("Full Name:")
+        __grid_user_info.addWidget(__lbl_name, 1, 0)
+
+        self.__lbl_name_value = QLabel()
+        __grid_user_info.addWidget(self.__lbl_name_value, 1, 1)
+
+        # Current Account Nickname
+        __lbl_nickname = QLabel("Nickname:")
+        __grid_user_info.addWidget(__lbl_nickname, 2, 0)
+
+        self.__lbl_nickname_value = QLabel()
+        __grid_user_info.addWidget(self.__lbl_nickname_value, 2, 1)
+
+        # Current Account Gender
+        __lbl_gender = QLabel("Gender:")
+        __grid_user_info.addWidget(__lbl_gender, 3, 0)
+
+        self.__lbl_gender_value = QLabel()
+        __grid_user_info.addWidget(self.__lbl_gender_value, 3, 1)
+
+        # Current Account Birthdate
+        __lbl_birthdate = QLabel("Birthdate:")
+        __grid_user_info.addWidget(__lbl_birthdate, 4, 0)
+
+        self.__lbl_birthdate_value = QLabel()
+        __grid_user_info.addWidget(self.__lbl_birthdate_value, 4, 1)
+
+        # Current Account Nationality
+        __lbl_nationality = QLabel("Nationality:")
+        __grid_user_info.addWidget(__lbl_nationality, 5, 0)
+
+        self.__lbl_nationality_value = QLabel()
+        __grid_user_info.addWidget(self.__lbl_nationality_value, 5, 1)
+
+        # Current Account Address
+        __lbl_address = QLabel("Address:")
+        __grid_user_info.addWidget(__lbl_address, 6, 0)
+
+        self.__lbl_address_value = QLabel()
+        __grid_user_info.addWidget(self.__lbl_address_value, 6, 1)
+
+        # Current Account Email
+        __lbl_email = QLabel("Email:")
+        __grid_user_info.addWidget(__lbl_email, 7, 0)
+
+        self.__lbl_email_value = QLabel()
+        __grid_user_info.addWidget(self.__lbl_email_value, 7, 1)
+
+        # Current Account Phone
+        __lbl_phone = QLabel("Phone:")
+        __grid_user_info.addWidget(__lbl_phone, 8, 0)
+
+        self.__lbl_phone_value = QLabel()
+        __grid_user_info.addWidget(self.__lbl_phone_value, 8, 1)
+
+        # Group Box - Current User Informaiton
+        __group_box_user_info = QGroupBox("User Information")
+        __group_box_user_info.setCheckable(False)
+
+        __group_box_user_info.setLayout(__grid_user_info)
+        
+        __grid_main.addWidget(__group_box_user_info, 0, 0)
+        # End of: Initialize User Information Widgets -----------------------------------------------------------------------------------------
 
         self.setLayout(__grid_main)
         self.setGeometry(300, 300, 200, 200)
         self.setWindowTitle("Project Plutus - Main Window")
         self.show()
-        # =============================================================================================================================
+        # =====================================================================================================================================
         # End of: Python GUI Setup Using PyQt5
-        # =============================================================================================================================
+        # =====================================================================================================================================
 
-    # Mutator Functions ---------------------------------------------------------------------------------------------------------------
-    def set_current_balance(self, current_balance):
-        self.__lbl_current_balance_value.setText(str(current_balance))
-        self.__lbl_current_balance_value.adjustSize()
+    # Setter Functions ------------------------------------------------------------------------------------------------------------------------
+    # Set Current User/Account ID
+    def set_user_id(self, user_id):
+        self.__lbl_user_id_value.setText(str(user_id))
+        self.__lbl_user_id_value.adjustSize()
 
-        return True
+    # Set Current Account Name
+    def set_name(self, name):
+        self.__lbl_name_value.setText(str(name))
+        self.__lbl_name_value.adjustSize()
 
-    def set_current_currency_type(self, current_currency_type):
-        self.__lbl_current_currency_type_value.setText(current_currency_type)
-        self.__lbl_current_currency_type_value.adjustSize()
+    # Set Current Nickname
+    def set_nickname(self, nickname):
+        self.__lbl_nickname_value.setText(nickname)
+        self.__lbl_nickname_value.adjustSize()
 
-        return True
-    # End of: Mutator Funcions --------------------------------------------------------------------------------------------------------
+    # Set Current Account Gender
+    def set_gender(self, gender):
+        self.__lbl_gender_value.setText(str(gender))
+        self.__lbl_gender_value.adjustSize()
 
-    # Accessor Functions --------------------------------------------------------------------------------------------------------------
-    # End of: Accessor Functions ------------------------------------------------------------------------------------------------------
+    # Set Current Account Birthdate
+    def set_birthdate(self, birthdate):
+        self.__lbl_birthdate_value.setText(str(birthdate))
+        self.__lbl_birthdate_value.adjustSize()
 
-    # Utility Functions ---------------------------------------------------------------------------------------------------------------
-    # End of: Utility Functions -------------------------------------------------------------------------------------------------------
+    # Set Current Account Nationality
+    def set_nationality(self, nationality):
+        self.__lbl_nationality_value.setText(str(nationality))
+        self.__lbl_nationality_value.adjustSize()
+
+    # Set Current Account Address
+    def set_address(self, address):
+        self.__lbl_address_value.setText(str(address))
+        self.__lbl_address_value.adjustSize()
+
+    # Set Current Account Email
+    def set_email(self, email):
+        self.__lbl_email_value.setText(str(email))
+        self.__lbl_email_value.adjustSize()
+
+    # Set Current Account Phone
+    def set_phone(self, phone):
+        self.__lbl_phone_value.setText(str(phone))
+        self.__lbl_phone_value.adjustSize()
+
+    # Set Current Account Type Value
+    def set_balance_type(self, balance_type):
+        self.__lbl_balance_type_value.setText(str(balance_type))
+        self.__lbl_balance_type_value.adjustSize()
+    # End of: Setter Funcions -----------------------------------------------------------------------------------------------------------------
+
+    # Accessor Functions ----------------------------------------------------------------------------------------------------------------------
+    # End of: Accessor Functions --------------------------------------------------------------------------------------------------------------
+
+    # Utility Functions -----------------------------------------------------------------------------------------------------------------------
+    # End of: Utility Functions ---------------------------------------------------------------------------------------------------------------
 
 
 def main():
